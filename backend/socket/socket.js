@@ -1,4 +1,3 @@
-// backend/socket/socket.js
 import { Server } from "socket.io";
 
 let io;
@@ -24,7 +23,6 @@ export const initializeSocketIO = (httpServerInstance) => {
         transports: ['websocket', 'polling'],
     });
 
-
     io.on('connection', (socket) => {
         const { userId } = socket.handshake.query;
 
@@ -32,11 +30,26 @@ export const initializeSocketIO = (httpServerInstance) => {
             userSocketMap[userId] = socket.id;
             io.emit('getOnlineUsers', Object.keys(userSocketMap));
         } else {
-            console.warn(`[Socket.IO] Connection from socketId '${socket.id}' received without a valid userId in query params. Query:`, socket.handshake.query);
+            console.warn(`[Socket.IO] Connection from socketId '${socket.id}' received without a valid userId. Query:`, socket.handshake.query);
         }
 
+        // 🔁 Handle sending messages
+        socket.on("sendMessage", ({ senderId, receiverId, message }) => {
+            const receiverSocketId = getReceiverSocketId(receiverId);
+
+            if (receiverSocketId) {
+                io.to(receiverSocketId).emit("receiveMessage", {
+                    senderId,
+                    message,
+                });
+                console.log(`[Socket.IO] Message from ${senderId} to ${receiverId}`);
+            } else {
+                console.log(`[Socket.IO] Receiver ${receiverId} not online`);
+            }
+        });
+
         socket.on('disconnect', () => {
-            if (userId && userId !== "undefined" && userId !== "null" && userSocketMap[userId] === socket.id) {
+            if (userId && userSocketMap[userId] === socket.id) {
                 delete userSocketMap[userId];
                 io.emit('getOnlineUsers', Object.keys(userSocketMap));
             }
