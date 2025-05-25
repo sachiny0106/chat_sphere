@@ -10,12 +10,12 @@ export const initializeSocketIO = (httpServerInstance) => {
         return io;
     }
 
-    const frontendOrigin = process.env.FRONTEND_URL || 'http://localhost:3000';
+    const frontendOrigin = process.env.FRONTEND_URL || 'https://chat-sphere-znbh.onrender.com';
 
     io = new Server(httpServerInstance, {
         cors: {
             origin: [
-                'http://localhost:3000',
+                'https://chat-sphere-znbh.onrender.com',
                 frontendOrigin
             ],
             methods: ['GET', 'POST'],

@@ -32,7 +32,7 @@ app.use(cookieParser());
 
 // --- CORS Configuration ---
 const allowedOrigins = [
-  "http://localhost:3000",
+  "https://chat-sphere-znbh.onrender.com",
   backendAppOrigin
 ];
 
@@ -86,7 +86,7 @@ const startServer = async () => {
     httpServer.listen(PORT, () => {
       console.log(`[Backend] Server listening on ${backendAppOrigin}`);
       if (process.env.NODE_ENV !== "production") {
-        console.log(`[Backend Dev] Frontend expected at http://localhost:3000 or ${backendAppOrigin}`);
+        console.log(`[Backend Dev] Frontend expected at https://chat-sphere-znbh.onrender.com or ${backendAppOrigin}`);
       }
       if (process.env.FRONTEND_URL) {
         console.log(`[Backend] CORS allowed: ${process.env.FRONTEND_URL}`);
