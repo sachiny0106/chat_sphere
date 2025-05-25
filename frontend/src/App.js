@@ -10,12 +10,14 @@ import io from "socket.io-client";
 import { setSocket } from './redux/socketSlice';
 import { setOnlineUsers, setTypingUser } from './redux/userSlice';
 import { BASE_URL } from './config';
+import { Navigate } from "react-router-dom";
 
 const router = createBrowserRouter([
-  { path: "/", element: <HomePage /> },
+  { path: "/", element: <Navigate to="/login" replace /> }, // Redirect from '/' to '/login'
   { path: "/signup", element: <Signup /> },
   { path: "/login", element: <Login /> },
 ]);
+
 
 function App() {
   const authUserFromStore = useSelector(store => store.user.authUser);
