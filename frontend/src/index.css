@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root, .app-container {
+  height: 100%; /* Ensure all parent containers can expand to full viewport height */
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* Light gray background similar to your screenshot */
+  background-color: #f0f2f5; /* Or use a DaisyUI color like hsl(var(--b2)) if you prefer theme-awareness */
+  /* You can still use a subtle gradient if you like: */
+  /* background-image: linear-gradient(180deg, #f7f7f7 0%, #e9e9e9 100%); */
+  
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  @apply text-neutral-content; /* Default text color, adjust if needed based on body bg */
+  /* Ensure theme transitions are smooth if you use DaisyUI theme colors for body bg */
+  /* transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; */
+}
+
+/* If using DaisyUI theme variable for body background */
+/* html[data-theme="dark"] body {
+  @apply bg-gradient-to-br from-neutral to-neutral-focus;
+} */
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+::-webkit-scrollbar {
+  width: 7px; /* Slightly thinner */
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-base-300/30 rounded-lg; /* More transparent track */
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-neutral/50 rounded-lg; /* More transparent thumb */
+  border: 1px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-neutral/70;
+}
+
+/* Smooth transitions for theme changes on main chat elements if using DaisyUI themes within chat area */
+.bg-base-100, .bg-base-200, .bg-base-300, .text-base-content, .border-base-300 {
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+/* The main app container in App.js */
+.app-container {
+  display: flex;
+  flex-direction: column; /* This is important */
+  /* items-center and justify-content will be handled by the direct child of RouterProvider if needed */
+}
