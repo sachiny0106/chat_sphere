@@ -12,18 +12,15 @@ const Login = () => {
     password: "",
   });
   const [loading, setLoading] = useState(false);
+  const [demoLoading, setDemoLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onSubmitHandler = async (e) => {
-    e.preventDefault();
-    if (loading) return;
-    setLoading(true);
+  const loginRequest = async (payload, setBusy) => {
+    if (setBusy) setBusy(true);
     try {
-      const res = await axios.post(`${BASE_URL}/api/v1/user/login`, user, {
-        headers: {
-          'Content-Type': 'application/json'
-        },
+      const res = await axios.post(`${BASE_URL}/api/v1/user/login`, payload, {
+        headers: { 'Content-Type': 'application/json' },
         withCredentials: true
       });
       navigate("/");
@@ -33,9 +30,20 @@ const Login = () => {
       toast.error(error?.response?.data?.message || "Login failed. Please try again.");
       console.error("Login error:", error);
     } finally {
-      setLoading(false);
+      if (setBusy) setBusy(false);
     }
+  };
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    if (loading || demoLoading) return;
+    await loginRequest(user, setLoading);
   }
+
+  const handleDemoLogin = async () => {
+    if (loading || demoLoading) return;
+    await loginRequest({ username: "demo@chat.com", password: "Demo123!" }, setDemoLoading);
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-8 bg-base-200">
@@ -94,6 +102,15 @@ const Login = () => {
               disabled={loading}
             >
               {loading ? <span className="loading loading-dots loading-md"></span> : "Sign in"}
+            </button>
+
+            <button
+              type="button"
+              className="btn btn-outline btn-block"
+              onClick={handleDemoLogin}
+              disabled={demoLoading || loading}
+            >
+              {demoLoading ? <span className="loading loading-dots loading-md"></span> : "Demo Login"}
             </button>
           </form>
 

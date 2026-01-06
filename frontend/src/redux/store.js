@@ -3,6 +3,7 @@ import userReducer from "./userSlice.js";
 import messageReducer from "./messageSlice.js";
 import socketReducer from "./socketSlice.js";
 import themeReducer from "./themeSlice.js";
+import uiReducer from "./uiSlice.js";
 import {
     persistReducer,
     FLUSH,
@@ -18,7 +19,7 @@ import {
     key: 'root',
     version: 1,
     storage,
-    whitelist: ['user', 'message'], // theme is handled by themeSlice's localStorage
+    whitelist: ['user', 'message', 'ui'], // theme handled separately
   }
 
   const rootReducer = combineReducers({
@@ -26,6 +27,7 @@ import {
     message:messageReducer,
     socket:socketReducer,
     theme: themeReducer,
+    ui: uiReducer,
  })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

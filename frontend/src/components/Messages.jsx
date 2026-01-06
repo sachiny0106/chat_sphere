@@ -1,20 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useMemo, useRef } from 'react';
 import Message from './Message';
 import useGetMessages from '../hooks/useGetMessages';
 import { useSelector } from "react-redux";
 import useGetRealTimeMessage from '../hooks/useGetRealTimeMessage';
 
-const Messages = () => {
-    useGetMessages(); // Fetches messages and potentially marks them as read
-    useGetRealTimeMessage(); // Listens for new messages and read receipts
+const Messages = ({ searchTerm = "", density = "cozy", bindFirstUnreadRef }) => {
+    useGetMessages();
+    useGetRealTimeMessage();
 
     const { messages } = useSelector(store => store.message);
-    const { selectedUser, authUser } = useSelector(store => store.user); // Added authUser for context
+    const { selectedUser, authUser } = useSelector(store => store.user);
 
-    useEffect(() => {
-        // This log helps see if the messages array in Redux is updating as expected
-        console.log("[Messages.jsx] Messages from Redux store:", JSON.parse(JSON.stringify(messages)));
-    }, [messages]);
+    const firstUnreadSet = useRef(false);
 
     if (!authUser) { // Should ideally be handled by router, but good for direct component use
         return <div className='px-4 flex-1 flex justify-center items-center text-base-content/70'>Authenticating...</div>;
@@ -36,19 +33,38 @@ const Messages = () => {
         );
     }
 
+    const filteredMessages = useMemo(() => {
+        if (!Array.isArray(messages)) return [];
+        if (!searchTerm.trim()) return messages;
+        const term = searchTerm.toLowerCase();
+        return messages.filter((msg) => (msg.message || "").toLowerCase().includes(term));
+    }, [messages, searchTerm]);
+
+    const bubbleSpacing = density === "compact" ? "space-y-2" : "space-y-3";
+
     return (
-        <div className='px-4 flex-1 overflow-auto'>
-            {
-               messages.map((message) => {
-                    if (!message || !message._id || typeof message.message === 'undefined') { 
-                        console.warn("[Messages.jsx] Invalid message object found, skipping render:", message);
-                        return null;
+        <div className={`px-4 flex-1 overflow-auto ${bubbleSpacing}`}>
+            {filteredMessages.map((message) => {
+                if (!message || !message._id || typeof message.message === 'undefined') {
+                    return null;
+                }
+                const isUnreadForMe = message.receiverId === authUser._id && !message.isRead;
+                const refProp = !firstUnreadSet.current && isUnreadForMe
+                  ? {
+                      ref: (el) => {
+                        if (el) {
+                          firstUnreadSet.current = true;
+                          if (bindFirstUnreadRef) bindFirstUnreadRef(el);
+                        }
+                      }
                     }
-                    return (
-                        <Message key={message._id} message={message} />
-                    )
-                })
-            }
+                  : {};
+                return (
+                    <div key={message._id} {...refProp}>
+                        <Message message={message} />
+                    </div>
+                );
+            })}
         </div>
     )
 }

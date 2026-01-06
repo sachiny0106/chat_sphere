@@ -10,10 +10,14 @@ import { setAuthUser, setOtherUsers, setSelectedUser } from '../redux/userSlice'
 import { setMessages } from '../redux/messageSlice';
 import { BASE_URL } from '../config';
 import ThemeToggle from './ThemeToggle';
+import { setTheme } from "../redux/themeSlice";
+import { setDensity, setSoundOn } from "../redux/uiSlice";
 
 const Sidebar = () => {
     const [search, setSearch] = useState("");
     const {otherUsers, authUser} = useSelector(store=>store.user);
+    const { currentTheme } = useSelector(store => store.theme);
+    const { density, soundOn } = useSelector(store => store.ui);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -49,6 +53,47 @@ const Sidebar = () => {
               <h2 className="text-xl font-bold text-base-content">Chats</h2>
               <ThemeToggle /> 
             </div>
+
+                        <details className="collapse collapse-arrow bg-base-200/80 border border-base-300 rounded-xl mb-3">
+                            <summary className="collapse-title text-sm font-semibold text-base-content/80">Settings</summary>
+                            <div className="collapse-content flex flex-col gap-3">
+                                <div className="form-control">
+                                    <label className="label pb-1">
+                                        <span className="label-text text-xs">Theme</span>
+                                    </label>
+                                    <select
+                                        className="select select-bordered select-sm w-full"
+                                        value={currentTheme}
+                                        onChange={(e) => dispatch(setTheme(e.target.value))}
+                                    >
+                                        <option value="light">Light</option>
+                                        <option value="dark">Dark</option>
+                                    </select>
+                                </div>
+                                <div className="form-control">
+                                    <label className="label pb-1">
+                                        <span className="label-text text-xs">Density</span>
+                                    </label>
+                                    <select
+                                        className="select select-bordered select-sm w-full"
+                                        value={density}
+                                        onChange={(e) => dispatch(setDensity(e.target.value))}
+                                    >
+                                        <option value="cozy">Cozy</option>
+                                        <option value="compact">Compact</option>
+                                    </select>
+                                </div>
+                                <label className="label cursor-pointer justify-start gap-3">
+                                    <input
+                                        type="checkbox"
+                                        className="toggle toggle-primary toggle-sm"
+                                        checked={soundOn}
+                                        onChange={(e) => dispatch(setSoundOn(e.target.checked))}
+                                    />
+                                    <span className="label-text text-xs">Notification sound</span>
+                                </label>
+                            </div>
+                        </details>
             
             <form onSubmit={searchSubmitHandler} className="relative mb-4">
                 <input

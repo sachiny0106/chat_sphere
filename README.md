@@ -6,6 +6,11 @@ Modern real-time chat app with light/dark theming, read receipts, online presenc
 - Frontend: https://chat-sphere-frontend-six.vercel.app
 - Backend API (if deployed): https://chat-sphere-znbh.onrender.com
 
+### Demo Login
+- Email: `demo@chat.com`
+- Password: `Demo123!`
+Use the “Demo Login” button on the login screen to jump in instantly.
+
 ## ✨ Highlights
 - Real-time messaging with Socket.IO (online status + read receipts)
 - Clean light/dark themes using DaisyUI, persisted per user
@@ -35,6 +40,9 @@ MONGO_URI=your_mongo_uri
 JWT_SECRET_KEY=your_jwt_secret
 FRONTEND_URL=http://localhost:3000
 PORT=8080
+
+# (optional) Seed demo users/messages
+npm run seed --prefix backend
 
 # 3) Run backend
 cd backend
