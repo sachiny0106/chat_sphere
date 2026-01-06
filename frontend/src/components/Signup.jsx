@@ -80,20 +80,20 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-400 via-indigo-200 to-purple-300 p-4">
-      <div className="flex flex-col md:flex-row w-full max-w-4xl lg:max-w-5xl bg-white rounded-2xl shadow-2xl overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-transparent">
+      <div className="flex flex-col md:flex-row w-full max-w-4xl lg:max-w-5xl bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl overflow-hidden border border-white/20">
         {/* Left Welcome Section */}
-        <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-8 sm:p-12 bg-white space-y-6">
+        <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-8 sm:p-12 bg-transparent space-y-6 border-b md:border-b-0 md:border-r border-white/10">
           <SLogoIcon /> {/* UPDATED LOGO */}
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 text-center">Welcome!</h1>
-          <p className="text-base sm:text-lg text-gray-600 text-center max-w-xs">
+          <h1 className="text-3xl sm:text-4xl font-bold text-white text-center">Welcome!</h1>
+          <p className="text-base sm:text-lg text-gray-200 text-center max-w-xs">
             Explore the ideas throughout the world.
           </p>
         </div>
 
         {/* Right Signup Form Section */}
-        <div className="w-full md:w-1/2 p-8 sm:p-12 bg-base-100 flex flex-col justify-center">
-          <h2 className="text-3xl font-bold text-primary mb-6 text-center">Sign Up</h2>
+        <div className="w-full md:w-1/2 p-8 sm:p-12 bg-transparent flex flex-col justify-center">
+          <h2 className="text-3xl font-bold text-white mb-6 text-center">Sign Up</h2>
           <form onSubmit={onSubmitHandler} className="space-y-4">
             <div className="flex flex-col sm:flex-row gap-4">
               <input
@@ -102,7 +102,7 @@ const Signup = () => {
                 placeholder="First Name"
                 value={formData.firstName}
                 onChange={handleChange}
-                className="input input-bordered bg-gray-100 focus:bg-white focus:ring-2 focus:ring-primary w-full h-12 text-sm sm:text-base"
+                className="input input-bordered bg-slate-800/50 focus:bg-slate-900/50 text-white placeholder-gray-400 focus:ring-2 focus:ring-white border-none w-full h-12 text-sm sm:text-base"
                 disabled={loading}
               />
               <input
@@ -111,7 +111,7 @@ const Signup = () => {
                 placeholder="Last Name"
                 value={formData.lastName}
                 onChange={handleChange}
-                className="input input-bordered bg-gray-100 focus:bg-white focus:ring-2 focus:ring-primary w-full h-12 text-sm sm:text-base"
+                className="input input-bordered bg-slate-800/50 focus:bg-slate-900/50 text-white placeholder-gray-400 focus:ring-2 focus:ring-white border-none w-full h-12 text-sm sm:text-base"
                 disabled={loading}
               />
             </div>
@@ -121,7 +121,7 @@ const Signup = () => {
               placeholder="Email"
               value={formData.email}
               onChange={handleChange}
-              className="input input-bordered bg-gray-100 focus:bg-white focus:ring-2 focus:ring-primary w-full h-12 text-sm sm:text-base"
+              className="input input-bordered bg-slate-800/50 focus:bg-slate-900/50 text-white placeholder-gray-400 focus:ring-2 focus:ring-white border-none w-full h-12 text-sm sm:text-base"
               disabled={loading}
             />
             <input
@@ -130,7 +130,7 @@ const Signup = () => {
               placeholder="Password"
               value={formData.password}
               onChange={handleChange}
-              className="input input-bordered bg-gray-100 focus:bg-white focus:ring-2 focus:ring-primary w-full h-12 text-sm sm:text-base"
+              className="input input-bordered bg-slate-800/50 focus:bg-slate-900/50 text-white placeholder-gray-400 focus:ring-2 focus:ring-white border-none w-full h-12 text-sm sm:text-base"
               disabled={loading}
             />
             <input
@@ -139,51 +139,51 @@ const Signup = () => {
               placeholder="Confirm Password"
               value={formData.confirmPassword}
               onChange={handleChange}
-              className="input input-bordered bg-gray-100 focus:bg-white focus:ring-2 focus:ring-primary w-full h-12 text-sm sm:text-base"
+              className="input input-bordered bg-slate-800/50 focus:bg-slate-900/50 text-white placeholder-gray-400 focus:ring-2 focus:ring-white border-none w-full h-12 text-sm sm:text-base"
               disabled={loading}
             />
             {/* Gender Selection */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text text-base-content">Gender</span>
+                <span className="label-text text-gray-200">Gender</span>
               </label>
               <div className="flex gap-4">
                 <label className="label cursor-pointer gap-2">
-                  <span className="label-text text-base-content">Male</span>
+                  <span className="label-text text-gray-200">Male</span>
                   <input
                     type="radio"
                     name="gender"
                     value="male"
                     checked={formData.gender === "male"}
                     onChange={() => handleGenderChange("male")}
-                    className="radio radio-primary"
+                    className="radio radio-primary border-slate-400 checked:bg-indigo-500 checked:border-indigo-500"
                     disabled={loading}
                   />
                 </label>
                 <label className="label cursor-pointer gap-2">
-                  <span className="label-text text-base-content">Female</span>
+                  <span className="label-text text-gray-200">Female</span>
                   <input
                     type="radio"
                     name="gender"
                     value="female"
                     checked={formData.gender === "female"}
                     onChange={() => handleGenderChange("female")}
-                    className="radio radio-primary"
+                    className="radio radio-primary border-slate-400 checked:bg-indigo-500 checked:border-indigo-500"
                     disabled={loading}
                   />
                 </label>
               </div>
             </div>
 
-            <p className="text-sm text-center text-gray-600 pt-2">
+            <p className="text-sm text-center text-gray-300 pt-2">
               Already have an account?{' '}
-              <Link to="/login" className="link link-secondary hover:link-primary font-medium">
+              <Link to="/login" className="link text-white hover:text-indigo-200 font-medium decoration-transparent hover:decoration-white">
                 Login here
               </Link>
             </p>
             <button
               type="submit"
-              className="btn btn-primary btn-block h-12 text-lg capitalize mt-2"
+              className="btn btn-primary btn-block h-12 text-lg capitalize mt-2 bg-indigo-600 border-none hover:bg-indigo-700 text-white shadow-lg"
               disabled={loading}
             >
               {loading ? <span className="loading loading-spinner"></span> : "Sign Up"}

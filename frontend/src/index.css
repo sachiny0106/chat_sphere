@@ -9,19 +9,16 @@ html, body, #root, .app-container {
 }
 
 body {
-  /* Light gray background similar to your screenshot */
-  background-color: #f0f2f5; /* Or use a DaisyUI color like hsl(var(--b2)) if you prefer theme-awareness */
-  /* You can still use a subtle gradient if you like: */
-  /* background-image: linear-gradient(180deg, #f7f7f7 0%, #e9e9e9 100%); */
+  /* Modern gradient background */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+  background-attachment: fixed;
   
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  @apply text-neutral-content; /* Default text color, adjust if needed based on body bg */
-  /* Ensure theme transitions are smooth if you use DaisyUI theme colors for body bg */
-  /* transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; */
+  @apply text-gray-100; /* Lighter text for the dark gradient */
 }
 
 /* If using DaisyUI theme variable for body background */

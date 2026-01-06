@@ -47,23 +47,23 @@ const Sidebar = () => {
     }
     return (
         // Responsive width and theme-aware background
-        <div className='w-full sm:w-1/3 md:w-1/4 border-r border-base-300 p-4 flex flex-col bg-base-200'>
+        <div className='w-full sm:w-1/3 md:w-1/4 border-r border-slate-500/30 p-4 flex flex-col bg-slate-400/10 backdrop-blur-sm'>
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold text-base-content">Chats</h2>
+              <h2 className="text-xl font-semibold text-white">Chats</h2>
               <ThemeToggle /> {/* Add ThemeToggle here */}
             </div>
             <form onSubmit={searchSubmitHandler} action="" className='flex items-center gap-2 mb-4'>
                 <input
                     value={search}
                     onChange={(e)=>setSearch(e.target.value)}
-                    className='input input-bordered input-sm rounded-md flex-grow focus:ring-1 focus:ring-primary' type="text"
+                    className='input input-bordered input-sm rounded-full flex-grow bg-white/10 text-white placeholder-gray-300 focus:ring-1 focus:ring-white border-none' type="text"
                     placeholder='Search users...'
                 />
-                <button type='submit' className='btn btn-ghost btn-sm btn-square text-base-content hover:bg-base-300'>
+                <button type='submit' className='btn btn-circle btn-sm bg-white/10 border-none text-white hover:bg-white/20'>
                     <BiSearchAlt2 className='w-5 h-5'/>
                 </button>
             </form>
-            <div className="divider my-0"></div>
+            <div className="divider px-3"></div>
             <OtherUsers/>
             <div className='mt-auto pt-4 flex items-center justify-between'> {/* mt-auto pushes to bottom */}
                 <div className="flex items-center gap-2">

@@ -20,12 +20,12 @@ const MessageContainer = () => {
             {
                 selectedUser !== null ? (
                     // Use theme-aware background for the chat area if desired, or let HomePage handle it
-                    <div className='flex-grow flex flex-col bg-base-100'> {/* Changed md:min-w to flex-grow */}
+                    <div className='flex-grow flex flex-col bg-transparent'> {/* Changed md:min-w to flex-grow */}
                         {/* Header with selected user - theme aware */}
-                        <div className='flex gap-3 items-center bg-base-200 text-base-content px-4 py-3 mb-2 border-b border-base-300 shadow-sm'>
+                        <div className='flex gap-3 items-center bg-slate-500/10 text-white px-4 py-3 mb-2 border-b border-slate-500/30 shadow-sm'>
                             {/* <button onClick={handleBack} className="btn btn-ghost btn-sm sm:hidden">←</button> For back navigation on mobile */}
                             <div className={`avatar ${isOnline ? 'online' : 'offline'}`}>
-                                <div className='w-10 sm:w-12 rounded-full ring ring-primary'>
+                                <div className='w-10 sm:w-12 rounded-full ring ring-slate-200'>
                                     <img src={selectedUser?.profilePhoto} alt="user-profile" />
                                 </div>
                             </div>
@@ -33,22 +33,22 @@ const MessageContainer = () => {
                                 <div className='flex justify-between gap-2'>
                                     <p className="text-lg font-semibold">{selectedUser?.fullName}</p>
                                 </div>
-                                <span className="text-xs text-base-content/70">{isOnline ? "Online" : "Offline"}</span>
+                                <span className="text-xs text-gray-200">{isOnline ? "Online" : "Offline"}</span>
                             </div>
                         </div>
                         <Messages />
                         <SendInput />
                     </div>
                 ) : (
-                    <div className='flex-grow flex flex-col justify-center items-center text-center p-4 bg-base-100'>
+                    <div className='flex-grow flex flex-col justify-center items-center text-center p-4 bg-transparent text-white'>
                         {/* Theme-aware text */}
                         <div className="avatar mb-4">
-                            <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-4">
+                            <div className="w-24 rounded-full ring ring-white ring-offset-0">
                                 <img src={authUser?.profilePhoto || "/placeholder-avatar.png"} alt={authUser?.fullName} />
                             </div>
                         </div>
-                        <h1 className='text-3xl md:text-4xl text-base-content font-bold'>Hi, {authUser?.fullName}! </h1>
-                        <p className='text-lg md:text-xl text-base-content/80 mt-2'>Select a chat to start messaging.</p>
+                        <h1 className='text-3xl md:text-4xl text-white font-bold'>Hi, {authUser?.fullName}! </h1>
+                        <p className='text-lg md:text-xl text-gray-200 mt-2'>Select a chat to start messaging.</p>
                     </div>
                 )
             }

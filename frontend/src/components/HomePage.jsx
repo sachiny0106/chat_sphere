@@ -15,8 +15,7 @@ const HomePage = () => {
         w-full max-w-6xl
         rounded-xl shadow-2xl
         overflow-hidden
-        bg-base-100 /* Key for themed background */
-        border border-base-300/50
+        bg-white/10 backdrop-blur-lg border border-white/20
       '>
       <Sidebar />
       <MessageContainer />

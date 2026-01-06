@@ -41,15 +41,15 @@ const Message = ({message}) => {
                 </div>
             </div>
             <div
-                className={`chat-bubble relative group flex flex-col max-w-xs md:max-w-md lg:max-w-lg break-words
+                className={`chat-bubble relative group flex flex-col max-w-xs md:max-w-md lg:max-w-lg break-words shadow-md
                     ${isMyMessage
-                        ? 'bg-primary text-primary-content'
-                        : 'bg-base-300 text-base-content'
+                        ? 'bg-indigo-600 text-white'
+                        : 'bg-slate-700/50 text-white backdrop-blur-sm'
                     }
                 `}
             >
                 <span>{message.message}</span>
-                <div className={`flex items-center gap-1 mt-1 self-end ${isMyMessage ? 'text-primary-content/70' : 'text-base-content/70'}`}>
+                <div className={`flex items-center gap-1 mt-1 self-end ${isMyMessage ? 'text-indigo-200' : 'text-gray-300'}`}>
                     <span className={`text-xs opacity-70`}>
                         {messageTime}
                     </span>

@@ -54,12 +54,12 @@ const SendInput = () => {
                     onChange={(e) => setMessage(e.target.value)}
                     type="text"
                     placeholder='Send a message...'
-                    className='input input-bordered w-full p-3 bg-base-200 focus:bg-base-100 text-base-content' // Adjusted styling for theme
+                    className='input w-full p-3 bg-slate-700/50 text-white placeholder-gray-300 border-none focus:outline-none focus:ring-1 focus:ring-slate-400 rounded-full'
                     disabled={isLoading || !selectedUser}
                 />
                 <button 
                     type="submit" 
-                    className='absolute flex inset-y-0 end-0 items-center pr-4 text-primary disabled:text-base-content/50'
+                    className='absolute flex inset-y-0 end-0 items-center pr-4 text-white hover:text-gray-300 disabled:text-gray-500'
                     disabled={isLoading || !message.trim() || !selectedUser}
                 >
                     <IoSend className="w-5 h-5"/>

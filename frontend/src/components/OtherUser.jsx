@@ -15,16 +15,16 @@ const OtherUser = ({ user }) => {
             <div
               onClick={() => selectedUserHandler(user)}
               className={`
-                flex gap-2 items-center rounded p-2 cursor-pointer
+                flex gap-2 items-center rounded-full p-2 cursor-pointer
                 transition-all duration-200 ease-in-out group
                 ${selectedUser?._id === user?._id
-                  ? 'bg-primary text-primary-content' // Active state
-                  : 'hover:bg-base-300 text-base-content' // Hover state
+                  ? 'bg-slate-200/20 text-white shadow-inner' // Active state
+                  : 'hover:bg-white/10 text-white' // Hover state
                 }
               `}
             >
                 <div className={`avatar ${isOnline ? 'online' : 'offline'} `}>
-                    <div className='w-10 sm:w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 group-hover:ring-secondary transition-all'>
+                    <div className='w-10 sm:w-12 rounded-full ring ring-white/50 ring-offset-0 group-hover:ring-white transition-all'>
                         <img src={user?.profilePhoto} alt="user-profile" />
                     </div>
                 </div>
