@@ -18,12 +18,6 @@ Modern real-time chat app with light/dark theming, read receipts, online presenc
 - **Backend:** Node.js, Express, Socket.IO, Mongoose, JWT, bcrypt, cookie-parser, CORS
 - **Build/Deploy:** Vercel (frontend), any Node host for backend (Render/Railway/Fly/etc.)
 
-## 📸 Screenshots
-(Add your own captures in `/assets` and update paths below.)
-- Login (light) — `assets/login-light.png`
-- Login (dark) — `assets/login-dark.png`
-- Chat (light) — `assets/chat-light.png`
-- Chat (dark) — `assets/chat-dark.png`
 
 ## 🔧 Local Setup
 ```bash
