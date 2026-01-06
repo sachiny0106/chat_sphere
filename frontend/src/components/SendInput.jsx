@@ -70,14 +70,6 @@ const SendInput = () => {
                 </button>
             </div>
         </form>
-    )                    type="submit" 
-                    className='absolute flex inset-y-0 end-0 items-center pr-4 text-white hover:text-gray-300 disabled:text-gray-500'
-                    disabled={isLoading || !message.trim() || !selectedUser}
-                >
-                    <IoSend className="w-5 h-5"/>
-                </button>
-            </div>
-        </form>
     )
 }
 
