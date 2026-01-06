@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { setMessages, updateMessagesReadStatus } from "../redux/messageSlice";
 import { BASE_URL } from "../config";
 import axios from "axios";
-import toast from 'react-hot-toast'; // Added toast for potential error messages
 
 const useGetRealTimeMessage = () => {
     const socketFromRedux = useSelector(store => store.socket.socket);
@@ -14,14 +13,11 @@ const useGetRealTimeMessage = () => {
 
     useEffect(() => {
         if (socketFromRedux && socketFromRedux.connected && authUserId) {
-            console.log(`[useGetRealTimeMessage] Attaching listeners to socket: ${socketFromRedux.id} for authUser: ${authUserId}`);
 
             const handleNewMessage = async (newMessage) => {
-                console.log("[useGetRealTimeMessage] EVENT 'newMessage':", JSON.parse(JSON.stringify(newMessage)));
                 let messageToStore = { ...newMessage };
 
                 if (selectedUserId && newMessage.senderId === selectedUserId && newMessage.receiverId === authUserId) {
-                    // console.log(`[useGetRealTimeMessage] New message is for current chat. Attempting to mark as read.`);
                     try {
                         if (!BASE_URL) {
                             console.error("[useGetRealTimeMessage] BASE_URL is undefined, cannot mark message as read.");
@@ -31,7 +27,6 @@ const useGetRealTimeMessage = () => {
                         }
                     } catch (err) {
                          console.error("[useGetRealTimeMessage] Error marking new message as read via API:", err.response?.data || err.message);
-                         // toast.error("Failed to mark incoming message as read."); // Optional user feedback
                     }
                 }
                 dispatch(setMessages((prevMessages) => {
@@ -47,7 +42,6 @@ const useGetRealTimeMessage = () => {
             };
 
             const handleMessagesRead = (data) => {
-                console.log("[useGetRealTimeMessage] EVENT 'messagesRead':", data);
                 if (selectedUserId && data.conversationPartnerId === selectedUserId) {
                      dispatch(updateMessagesReadStatus({
                         conversationPartnerId: data.conversationPartnerId,
@@ -60,7 +54,6 @@ const useGetRealTimeMessage = () => {
             socketFromRedux.on("messagesRead", handleMessagesRead);
 
             return () => {
-                console.log(`[useGetRealTimeMessage] Cleaning up listeners from socket: ${socketFromRedux.id}`);
                 socketFromRedux.off("newMessage", handleNewMessage);
                 socketFromRedux.off("messagesRead", handleMessagesRead);
             };
