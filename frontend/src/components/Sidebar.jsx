@@ -44,8 +44,8 @@ const Sidebar = () => {
         }
     }
     return (
-        <div className="w-full sm:w-[280px] md:w-[320px] border-r border-base-300 p-4 flex flex-col bg-base-100 h-full">
-            <div className="flex justify-between items-center mb-4">
+                <div className="w-full sm:w-[280px] md:w-[320px] border-r border-base-300 p-4 flex flex-col bg-base-100/95 backdrop-blur h-full">
+                        <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold text-base-content">Chats</h2>
               <ThemeToggle /> 
             </div>
@@ -65,7 +65,7 @@ const Sidebar = () => {
             
             <div className="divider my-1"></div>
             
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-1 overflow-y-auto pr-1">
                 <OtherUsers/>
             </div>
 

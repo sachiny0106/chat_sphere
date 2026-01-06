@@ -43,13 +43,13 @@ const SendInput = () => {
     }
     return (
         <form onSubmit={onSubmitHandler} className='w-full'>
-            <div className='w-full relative flex items-center'>
+            <div className='w-full relative flex items-center bg-base-200/80 backdrop-blur rounded-full px-3 shadow-inner border border-base-300'>
                 <input
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     type="text"
                     placeholder='Type a message...'
-                    className='input input-bordered w-full pr-12 bg-base-200 text-base-content placeholder-base-content/50 rounded-full'
+                    className='input input-ghost w-full pr-14 bg-transparent text-base-content placeholder-base-content/50 focus:bg-transparent'
                     disabled={isLoading || !selectedUser}
                 />
                 <button 

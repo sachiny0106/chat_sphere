@@ -25,10 +25,10 @@ const Message = ({message}) => {
                     <img alt="avatar" src={isMyMessage ? authUser.profilePhoto : selectedUser?.profilePhoto} />
                 </div>
             </div>
-            <div className={`chat-bubble text-sm ${isMyMessage ? 'chat-bubble-primary' : 'bg-base-300 text-base-content'}`}>
+            <div className={`chat-bubble text-sm shadow-sm ${isMyMessage ? 'chat-bubble-primary' : 'bg-base-300 text-base-content'}`}>
                 {message.message}
             </div>
-            <div className="chat-footer opacity-50 text-xs flex items-center gap-1">
+            <div className="chat-footer opacity-60 text-[11px] flex items-center gap-1">
                 {messageTime}
                 {isMyMessage && (
                     message.isRead ? (

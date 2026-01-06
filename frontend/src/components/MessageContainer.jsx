@@ -8,10 +8,10 @@ const MessageContainer = () => {
     const isOnline = onlineUsers?.includes(selectedUser?._id);
 
     return (
-        <div className="flex-grow flex flex-col bg-base-200 h-full">
+        <div className="flex-grow flex flex-col bg-base-200 h-full bg-gradient-to-br from-base-200 via-base-200 to-base-300">
             {selectedUser ? (
                 <>
-                    <div className="flex gap-3 items-center bg-base-100 px-4 py-3 border-b border-base-300 shadow-sm">
+                    <div className="flex gap-3 items-center bg-base-100/90 backdrop-blur px-4 py-3 border-b border-base-300 shadow-sm">
                         <div className={`avatar ${isOnline ? 'online' : 'offline'}`}>
                             <div className="w-10 h-10 rounded-full">
                                 <img src={selectedUser?.profilePhoto} alt="user" />
@@ -19,9 +19,10 @@ const MessageContainer = () => {
                         </div>
                         <div className="flex flex-col">
                             <p className="font-semibold text-base-content">{selectedUser?.fullName}</p>
-                            <span className={`text-xs ${isOnline ? 'text-success' : 'text-base-content/50'}`}>
-                                {isOnline ? 'Online' : 'Offline'} 
-                            </span>
+                            <div className="flex items-center gap-2 text-xs text-base-content/60">
+                                <span className={`h-2 w-2 rounded-full ${isOnline ? 'bg-success' : 'bg-base-300'}`}></span>
+                                {isOnline ? 'Online' : 'Offline'}
+                            </div>
                         </div>
                     </div>
 
@@ -29,7 +30,7 @@ const MessageContainer = () => {
                         <Messages />
                     </div>
 
-                    <div className="p-3 bg-base-100 border-t border-base-300">
+                    <div className="p-3 bg-base-100/90 backdrop-blur border-t border-base-300 shadow-sm">
                         <SendInput />
                     </div>
                 </>
