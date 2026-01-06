@@ -13,6 +13,13 @@ const Messages = ({ searchTerm = "", density = "cozy", bindFirstUnreadRef }) => 
 
     const firstUnreadSet = useRef(false);
 
+    const filteredMessages = useMemo(() => {
+        if (!Array.isArray(messages)) return [];
+        if (!searchTerm.trim()) return messages;
+        const term = searchTerm.toLowerCase();
+        return messages.filter((msg) => (msg.message || "").toLowerCase().includes(term));
+    }, [messages, searchTerm]);
+
     if (!authUser) { // Should ideally be handled by router, but good for direct component use
         return <div className='px-4 flex-1 flex justify-center items-center text-base-content/70'>Authenticating...</div>;
     }
@@ -32,13 +39,6 @@ const Messages = ({ searchTerm = "", density = "cozy", bindFirstUnreadRef }) => 
             </div>
         );
     }
-
-    const filteredMessages = useMemo(() => {
-        if (!Array.isArray(messages)) return [];
-        if (!searchTerm.trim()) return messages;
-        const term = searchTerm.toLowerCase();
-        return messages.filter((msg) => (msg.message || "").toLowerCase().includes(term));
-    }, [messages, searchTerm]);
 
     const bubbleSpacing = density === "compact" ? "space-y-2" : "space-y-3";
 
