@@ -1,14 +1,14 @@
-import React, {useState } from 'react'
+import React, { useState } from 'react'
 import { IoSend } from "react-icons/io5";
 import axios from "axios";
 import {useDispatch,useSelector} from "react-redux";
 import { setMessages } from '../redux/messageSlice';
 import { BASE_URL } from '../config'; 
-import toast from 'react-hot-toast'; // Make sure toast is imported
+import toast from 'react-hot-toast';
 
 const SendInput = () => {
     const [message, setMessage] = useState("");
-    const [isLoading, setIsLoading] = useState(false); // Renamed for clarity
+    const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
     const {selectedUser} = useSelector(store=>store.user);
     const {messages} = useSelector(store=>store.message); // messages from Redux
@@ -16,13 +16,9 @@ const SendInput = () => {
     const onSubmitHandler = async (e) => {
         e.preventDefault();
         if (!message.trim() || isLoading) return;
-        if (!selectedUser || !selectedUser._id) {
-            toast.error("No user selected to send a message to.");
-            return;
-        }
+        if (!selectedUser || !selectedUser._id) return toast.error("No user selected.");
         setIsLoading(true);
         try {
-            console.log("[SendInput] Attempting to send message:", { text: message, toUserId: selectedUser._id });
             const res = await axios.post(`${BASE_URL}/api/v1/message/send/${selectedUser._id}`, {message}, { // Ensure selectedUser._id is correct
                 headers:{
                     'Content-Type':'application/json'
@@ -31,7 +27,6 @@ const SendInput = () => {
             });
 
             if (res.data && res.data.newMessage) {
-                // Ensure messages is an array before spreading
                 const currentMessages = Array.isArray(messages) ? messages : [];
                 dispatch(setMessages([...currentMessages, res.data.newMessage]));
             } else {
@@ -54,19 +49,15 @@ const SendInput = () => {
                     onChange={(e) => setMessage(e.target.value)}
                     type="text"
                     placeholder='Type a message...'
-                    className='input w-full p-4 pl-5 bg-slate-900/40 text-white placeholder-slate-400 border border-slate-600/50 focus:outline-none focus:border-sky-500/50 focus:ring-1 focus:ring-sky-500/50 rounded-full shadow-inner transition-all'
+                    className='input input-bordered w-full pr-12 bg-base-200 text-base-content placeholder-base-content/50 rounded-full'
                     disabled={isLoading || !selectedUser}
                 />
                 <button 
                     type="submit" 
                     disabled={isLoading || !message.trim()}
-                    className={`absolute right-2 p-2 rounded-full transition-all duration-300 ${
-                        message.trim() 
-                        ? 'bg-sky-500 text-white hover:bg-sky-600 shadow-lg shadow-sky-500/30' 
-                        : 'bg-transparent text-slate-500 cursor-default'
-                    }`}
+                    className={`absolute right-2 btn btn-circle btn-sm ${message.trim() ? 'btn-primary' : 'btn-ghost text-base-content/30'}`}
                 >
-                    <IoSend className='w-5 h-5 pl-0.5'/> 
+                    <IoSend className='w-4 h-4'/> 
                 </button>
             </div>
         </form>

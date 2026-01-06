@@ -15,6 +15,7 @@ export const initializeSocketIO = (httpServerInstance) => {
         cors: {
             origin: [
                 'https://chat-sphere-znbh.onrender.com',
+                'http://localhost:3000',
                 frontendOrigin
             ],
             methods: ['GET', 'POST'],

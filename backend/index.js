@@ -33,14 +33,12 @@ app.use(cookieParser());
 // --- CORS Configuration ---
 const allowedOrigins = [
   "https://chat-sphere-znbh.onrender.com",
+  "http://localhost:3000",
   backendAppOrigin
 ];
 
-// Add FRONTEND_URL if defined
 if (process.env.FRONTEND_URL && !allowedOrigins.includes(process.env.FRONTEND_URL)) {
   allowedOrigins.push(process.env.FRONTEND_URL);
-} else if (process.env.NODE_ENV === 'production' && !process.env.FRONTEND_URL) {
-  console.warn("WARNING: FRONTEND_URL not set in production. Make sure CORS is correctly configured.");
 }
 
 const corsOptions = {

@@ -3,28 +3,19 @@
 @tailwind utilities;
 
 html, body, #root, .app-container {
-  height: 100%; /* Ensure all parent containers can expand to full viewport height */
+  height: 100%;
   margin: 0;
   padding: 0;
 }
 
 body {
-  /* Modern gradient background */
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-  background-attachment: fixed;
-  
+  @apply bg-base-200 text-base-content transition-colors duration-300;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  @apply text-gray-100; /* Lighter text for the dark gradient */
 }
-
-/* If using DaisyUI theme variable for body background */
-/* html[data-theme="dark"] body {
-  @apply bg-gradient-to-br from-neutral to-neutral-focus;
-} */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

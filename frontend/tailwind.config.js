@@ -1,15 +1,41 @@
-// tailwind.config.js
 module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
-    extend: {
-      gridTemplateColumns: {
-        'custom-3col': 'minmax(280px, 1fr) minmax(0, 2.5fr) minmax(280px, 1fr)',
-         // You can also define it as: '0.8fr 1.4fr 0.8fr' or similar fixed ratios if preferred for certain breakpoints
-         // Or, using theme values: theme('spacing.72') 1.5fr theme('spacing.72')
-      }
-    },
+    extend: {},
   },
-  daisyui: { /* ... your daisyui config ... */ },
+  daisyui: {
+    themes: [
+      {
+        light: {
+          "primary": "#3b82f6",
+          "secondary": "#8b5cf6",
+          "accent": "#06b6d4",
+          "neutral": "#1e293b",
+          "base-100": "#ffffff",
+          "base-200": "#f1f5f9",
+          "base-300": "#e2e8f0",
+          "info": "#0ea5e9",
+          "success": "#22c55e",
+          "warning": "#f59e0b",
+          "error": "#ef4444",
+        },
+      },
+      {
+        dark: {
+          "primary": "#60a5fa",
+          "secondary": "#a78bfa",
+          "accent": "#22d3ee",
+          "neutral": "#1e293b",
+          "base-100": "#0f172a",
+          "base-200": "#1e293b",
+          "base-300": "#334155",
+          "info": "#38bdf8",
+          "success": "#4ade80",
+          "warning": "#fbbf24",
+          "error": "#f87171",
+        },
+      },
+    ],
+  },
   plugins: [require("daisyui")],
 }

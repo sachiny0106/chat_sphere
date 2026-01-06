@@ -3,13 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import toast from "react-hot-toast";
 import { BASE_URL } from '../config'; 
-// New S-Logo
-const SLogoIcon = () => (
-  <div className="w-20 h-20 bg-primary flex items-center justify-center rounded-full text-primary-content"> {/* Ensure contrast for S */}
-    <span className="text-5xl font-bold">S</span>
-  </div>
-);
-
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -18,7 +11,7 @@ const Signup = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    gender: "", // Re-added gender
+    gender: "",
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -34,161 +27,154 @@ const Signup = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (loading) return;
-    
 
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.password || !formData.confirmPassword || !formData.gender) {
-      toast.error("All fields are required, including gender.");
-      setLoading(false);
+      toast.error("All fields are required.");
       return;
     }
     
-    setLoading(true);
-
     if (formData.password !== formData.confirmPassword) {
       toast.error("Passwords do not match!");
-      setLoading(false);
       return;
     }
+
+    setLoading(true);
 
     const userToRegister = {
       fullName: `${formData.firstName} ${formData.lastName}`.trim(),
-      username: formData.email, // Using email as username
+      username: formData.email,
       password: formData.password,
       confirmPassword: formData.confirmPassword,
-      gender: formData.gender, // Sending selected gender
+      gender: formData.gender,
     };
 
     try {
       const res = await axios.post(`${BASE_URL}/api/v1/user/register`, userToRegister, {
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         withCredentials: true
       });
       if (res.data.success) {
         navigate("/login");
-        toast.success(res.data.message || "Signup successful! Please login.");
+        toast.success(res.data.message || "Signup successful!");
       } else {
-        toast.error(res.data.message || "Signup failed. Please try again.");
+        toast.error(res.data.message || "Signup failed.");
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message || "An error occurred during signup.");
-      console.error("Signup error:", error);
+      toast.error(error?.response?.data?.message || "An error occurred.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-transparent">
-      <div className="flex flex-col md:flex-row w-full max-w-4xl lg:max-w-5xl bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl overflow-hidden border border-white/20">
-        {/* Left Welcome Section */}
-        <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-8 sm:p-12 bg-transparent space-y-6 border-b md:border-b-0 md:border-r border-white/10">
-          <SLogoIcon /> {/* UPDATED LOGO */}
-          <h1 className="text-3xl sm:text-4xl font-bold text-white text-center">Welcome!</h1>
-          <p className="text-base sm:text-lg text-gray-200 text-center max-w-xs">
-            Explore the ideas throughout the world.
-          </p>
+    <div className="min-h-screen flex items-center justify-center p-4 bg-base-200">
+      <div className="w-full max-w-md bg-base-100 rounded-2xl shadow-xl overflow-hidden border border-base-300 p-8">
+        <div className="text-center mb-6">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary text-primary-content text-2xl font-bold mb-4">
+            CS
+          </div>
+          <h2 className="text-2xl font-bold text-base-content">Create Account</h2>
+          <p className="text-base-content/60 mt-1">Join our community</p>
         </div>
-
-        {/* Right Signup Form Section */}
-        <div className="w-full md:w-1/2 p-8 sm:p-12 bg-transparent flex flex-col justify-center">
-          <h2 className="text-3xl font-bold text-white mb-6 text-center">Sign Up</h2>
-          <form onSubmit={onSubmitHandler} className="space-y-4">
-            <div className="flex flex-col sm:flex-row gap-4">
-              <input
-                type="text"
-                name="firstName"
-                placeholder="First Name"
-                value={formData.firstName}
-                onChange={handleChange}
-                className="input input-bordered bg-slate-800/50 focus:bg-slate-900/50 text-white placeholder-gray-400 focus:ring-2 focus:ring-white border-none w-full h-12 text-sm sm:text-base"
-                disabled={loading}
-              />
-              <input
-                type="text"
-                name="lastName"
-                placeholder="Last Name"
-                value={formData.lastName}
-                onChange={handleChange}
-                className="input input-bordered bg-slate-800/50 focus:bg-slate-900/50 text-white placeholder-gray-400 focus:ring-2 focus:ring-white border-none w-full h-12 text-sm sm:text-base"
-                disabled={loading}
-              />
-            </div>
+        
+        <form onSubmit={onSubmitHandler} className="space-y-3">
+          <div className="flex gap-3">
             <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
+              type="text"
+              name="firstName"
+              placeholder="First Name"
+              value={formData.firstName}
               onChange={handleChange}
-              className="input input-bordered bg-slate-800/50 focus:bg-slate-900/50 text-white placeholder-gray-400 focus:ring-2 focus:ring-white border-none w-full h-12 text-sm sm:text-base"
+              className="input input-bordered w-full"
               disabled={loading}
             />
             <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={formData.password}
+              type="text"
+              name="lastName"
+              placeholder="Last Name"
+              value={formData.lastName}
               onChange={handleChange}
-              className="input input-bordered bg-slate-800/50 focus:bg-slate-900/50 text-white placeholder-gray-400 focus:ring-2 focus:ring-white border-none w-full h-12 text-sm sm:text-base"
+              className="input input-bordered w-full"
               disabled={loading}
             />
-            <input
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              className="input input-bordered bg-slate-800/50 focus:bg-slate-900/50 text-white placeholder-gray-400 focus:ring-2 focus:ring-white border-none w-full h-12 text-sm sm:text-base"
-              disabled={loading}
-            />
-            {/* Gender Selection */}
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text text-gray-200">Gender</span>
+          </div>
+          
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            className="input input-bordered w-full"
+            disabled={loading}
+          />
+          
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            className="input input-bordered w-full"
+            disabled={loading}
+          />
+          
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            className="input input-bordered w-full"
+            disabled={loading}
+          />
+          
+          <div className="form-control">
+            <label className="label py-1">
+              <span className="label-text">Gender</span>
+            </label>
+            <div className="flex gap-4">
+              <label className="label cursor-pointer gap-2">
+                <input
+                  type="radio"
+                  name="gender"
+                  checked={formData.gender === "male"}
+                  onChange={() => handleGenderChange("male")}
+                  className="radio radio-primary radio-sm"
+                  disabled={loading}
+                />
+                <span className="label-text">Male</span>
               </label>
-              <div className="flex gap-4">
-                <label className="label cursor-pointer gap-2">
-                  <span className="label-text text-gray-200">Male</span>
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="male"
-                    checked={formData.gender === "male"}
-                    onChange={() => handleGenderChange("male")}
-                    className="radio radio-primary border-slate-400 checked:bg-indigo-500 checked:border-indigo-500"
-                    disabled={loading}
-                  />
-                </label>
-                <label className="label cursor-pointer gap-2">
-                  <span className="label-text text-gray-200">Female</span>
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="female"
-                    checked={formData.gender === "female"}
-                    onChange={() => handleGenderChange("female")}
-                    className="radio radio-primary border-slate-400 checked:bg-indigo-500 checked:border-indigo-500"
-                    disabled={loading}
-                  />
-                </label>
-              </div>
+              <label className="label cursor-pointer gap-2">
+                <input
+                  type="radio"
+                  name="gender"
+                  checked={formData.gender === "female"}
+                  onChange={() => handleGenderChange("female")}
+                  className="radio radio-primary radio-sm"
+                  disabled={loading}
+                />
+                <span className="label-text">Female</span>
+              </label>
             </div>
+          </div>
 
-            <p className="text-sm text-center text-gray-300 pt-2">
-              Already have an account?{' '}
-              <Link to="/login" className="link text-white hover:text-indigo-200 font-medium decoration-transparent hover:decoration-white">
-                Login here
-              </Link>
-            </p>
-            <button
-              type="submit"
-              className="btn btn-primary btn-block h-12 text-lg capitalize mt-2 bg-indigo-600 border-none hover:bg-indigo-700 text-white shadow-lg"
-              disabled={loading}
-            >
-              {loading ? <span className="loading loading-spinner"></span> : "Sign Up"}
-            </button>
-          </form>
+          <button
+            type="submit"
+            className="btn btn-primary btn-block mt-4"
+            disabled={loading}
+          >
+            {loading ? <span className="loading loading-spinner"></span> : "Sign Up"}
+          </button>
+        </form>
+        
+        <div className="mt-6 text-center">
+          <p className="text-base-content/60">
+            Already have an account?{' '}
+            <Link to="/login" className="link link-primary font-semibold">
+              Sign in
+            </Link>
+          </p>
         </div>
       </div>
     </div>

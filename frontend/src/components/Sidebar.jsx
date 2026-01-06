@@ -1,19 +1,19 @@
 import React, { useState } from 'react'
 import { BiSearchAlt2 } from "react-icons/bi";
-import { IoLogOutOutline } from "react-icons/io5"; // Logout Icon
+import { IoLogOutOutline } from "react-icons/io5";
 import OtherUsers from './OtherUsers';
 import axios from "axios";
 import toast from "react-hot-toast";
-import {useNavigate} from "react-router-dom";
-import {useSelector, useDispatch} from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { setAuthUser, setOtherUsers, setSelectedUser } from '../redux/userSlice';
 import { setMessages } from '../redux/messageSlice';
-import { BASE_URL } from '../config'; 
-import ThemeToggle from './ThemeToggle'; // Import ThemeToggle
+import { BASE_URL } from '../config';
+import ThemeToggle from './ThemeToggle';
 
 const Sidebar = () => {
     const [search, setSearch] = useState("");
-    const {otherUsers, authUser} = useSelector(store=>store.user); // Get authUser for display
+    const {otherUsers, authUser} = useSelector(store=>store.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -32,10 +32,8 @@ const Sidebar = () => {
     }
     const searchSubmitHandler = (e) => {
         e.preventDefault();
-        if (!search.trim()) { // If search is empty, reset to all other users
-          dispatch(setOtherUsers(null)); // This will trigger useGetOtherUsers to refetch
-          // Or, if you have the original full list stored, dispatch that.
-          // For simplicity, null will make the hook refetch.
+                if (!search.trim()) {
+                    dispatch(setOtherUsers(null));
           return;
         }
         const conversationUser = otherUsers?.find((user)=> user.fullName.toLowerCase().includes(search.toLowerCase()));
@@ -46,49 +44,49 @@ const Sidebar = () => {
         }
     }
     return (
-        <div className='w-full sm:w-[300px] md:w-[350px] border-r border-slate-400/20 p-4 flex flex-col bg-black/20 h-full backdrop-blur-sm'>
-            <div className="flex justify-between items-center mb-5 px-1">
-              <h2 className="text-2xl font-bold text-white tracking-wide">Chats</h2>
+        <div className="w-full sm:w-[280px] md:w-[320px] border-r border-base-300 p-4 flex flex-col bg-base-100 h-full">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold text-base-content">Chats</h2>
               <ThemeToggle /> 
             </div>
             
-            <form onSubmit={searchSubmitHandler} className='relative mb-4 flex items-center gap-2'>
+            <form onSubmit={searchSubmitHandler} className="relative mb-4">
                 <input
                     value={search}
                     onChange={(e)=>setSearch(e.target.value)}
-                    className='input w-full bg-slate-800/50 text-white placeholder-slate-400 rounded-xl px-4 py-2 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500/50 transition-all shadow-inner' // enhanced input
+                    className="input input-bordered w-full bg-base-200 text-base-content placeholder-base-content/50 rounded-lg h-10 pr-10"
                     type="text"
-                    placeholder='Search users...'
+                    placeholder="Search users..."
                 />
-                <button type='submit' className='absolute right-3 btn btn-circle btn-xs btn-ghost text-slate-300 hover:text-white'>
-                    <BiSearchAlt2 className='w-5 h-5'/>
+                <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 btn btn-ghost btn-xs text-base-content/70 hover:text-primary">
+                    <BiSearchAlt2 className="w-5 h-5"/>
                 </button>
             </form>
             
-            <div className="divider my-2 mt-0 h-px bg-slate-700/50 opacity-100"></div>
+            <div className="divider my-1"></div>
             
-            <div className="flex-1 overflow-y-auto custom-scrollbar">
+            <div className="flex-1 overflow-y-auto">
                 <OtherUsers/>
             </div>
 
-            <div className='mt-3 pt-3 border-t border-slate-700/50 flex items-center justify-between px-1'> 
+            <div className="mt-3 pt-3 border-t border-base-300 flex items-center justify-between"> 
                 <div className="flex items-center gap-3">
                     <div className="avatar online">
-                        <div className="w-10 h-10 rounded-full ring-2 ring-sky-500/50">
+                        <div className="w-10 h-10 rounded-full ring-2 ring-primary/30">
                             <img src={authUser?.profilePhoto} alt={authUser?.fullName} className="object-cover" />
                         </div>
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-sm font-semibold text-white">{authUser?.fullName}</span>
-                        <span className="text-xs text-slate-400">My Account</span>
+                        <span className="text-sm font-semibold text-base-content">{authUser?.fullName}</span>
+                        <span className="text-xs text-base-content/60">Online</span>
                     </div>
                 </div>
                 <button
                     onClick={logoutHandler}
-                    className='btn btn-ghost btn-circle btn-sm text-red-400 hover:bg-red-500/20 hover:text-red-200 transition-colors'
+                    className="btn btn-ghost btn-circle btn-sm text-error hover:bg-error/10"
                     title="Logout"
                 >
-                    <IoLogOutOutline className='w-6 h-6'/>
+                    <IoLogOutOutline className="w-5 h-5"/>
                 </button>
             </div>
         </div>
