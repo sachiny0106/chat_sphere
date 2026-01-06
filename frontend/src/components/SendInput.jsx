@@ -47,18 +47,30 @@ const SendInput = () => {
         setMessage("");
     }
     return (
-        <form onSubmit={onSubmitHandler} className='px-4 my-3'>
-            <div className='w-full relative'>
+        <form onSubmit={onSubmitHandler} className='w-full'>
+            <div className='w-full relative flex items-center'>
                 <input
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     type="text"
-                    placeholder='Send a message...'
-                    className='input w-full p-3 bg-slate-700/50 text-white placeholder-gray-300 border-none focus:outline-none focus:ring-1 focus:ring-slate-400 rounded-full'
+                    placeholder='Type a message...'
+                    className='input w-full p-4 pl-5 bg-slate-900/40 text-white placeholder-slate-400 border border-slate-600/50 focus:outline-none focus:border-sky-500/50 focus:ring-1 focus:ring-sky-500/50 rounded-full shadow-inner transition-all'
                     disabled={isLoading || !selectedUser}
                 />
                 <button 
                     type="submit" 
+                    disabled={isLoading || !message.trim()}
+                    className={`absolute right-2 p-2 rounded-full transition-all duration-300 ${
+                        message.trim() 
+                        ? 'bg-sky-500 text-white hover:bg-sky-600 shadow-lg shadow-sky-500/30' 
+                        : 'bg-transparent text-slate-500 cursor-default'
+                    }`}
+                >
+                    <IoSend className='w-5 h-5 pl-0.5'/> 
+                </button>
+            </div>
+        </form>
+    )                    type="submit" 
                     className='absolute flex inset-y-0 end-0 items-center pr-4 text-white hover:text-gray-300 disabled:text-gray-500'
                     disabled={isLoading || !message.trim() || !selectedUser}
                 >

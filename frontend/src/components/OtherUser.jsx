@@ -15,28 +15,26 @@ const OtherUser = ({ user }) => {
             <div
               onClick={() => selectedUserHandler(user)}
               className={`
-                flex gap-2 items-center rounded-full p-2 cursor-pointer
-                transition-all duration-200 ease-in-out group
+                flex gap-3 items-center rounded-xl p-3 cursor-pointer
+                transition-all duration-300 ease-in-out group mb-1
                 ${selectedUser?._id === user?._id
-                  ? 'bg-slate-200/20 text-white shadow-inner' // Active state
-                  : 'hover:bg-white/10 text-white' // Hover state
+                  ? 'bg-sky-500/20 text-white shadow-md border-l-4 border-sky-400' // Active state
+                  : 'hover:bg-slate-800/30 text-slate-200 hover:text-white border-l-4 border-transparent' // Hover state
                 }
               `}
             >
-                <div className={`avatar ${isOnline ? 'online' : 'offline'} `}>
-                    <div className='w-10 sm:w-12 rounded-full ring ring-white/50 ring-offset-0 group-hover:ring-white transition-all'>
-                        <img src={user?.profilePhoto} alt="user-profile" />
+                <div className={`avatar ${isOnline ? 'online' : ''} `}>
+                    <div className='w-11 h-11 rounded-full ring-2 ring-slate-600 group-hover:ring-sky-400 transition-all'>
+                        <img src={user?.profilePhoto} alt="user-profile" className="object-cover" />
                     </div>
                 </div>
-                <div className='flex flex-col flex-1'>
+                <div className='flex flex-col flex-1 min-w-0'> 
                     <div className='flex justify-between gap-2 items-center'>
-                        <p className="font-semibold">{user?.fullName}</p>
-                        {/* You could add a small dot or last message preview here */}
+                        <p className="font-semibold truncate">{user?.fullName}</p>
                     </div>
-                    {/* <span className="text-xs text-base-content/70">Last message preview...</span> */}
                 </div>
             </div>
-            <div className='divider my-0 py-0 h-1 opacity-50'></div>
+            {/* <div className='divider my-0 py-0 h-1 opacity-50'></div> */}
         </>
     )
 }

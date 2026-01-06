@@ -41,26 +41,31 @@ const Message = ({message}) => {
                 </div>
             </div>
             <div
-                className={`chat-bubble relative group flex flex-col max-w-xs md:max-w-md lg:max-w-lg break-words shadow-md
+                className={`chat-bubble text-sm md:text-md py-2 px-4 shadow-lg transition-all hover:shadow-xl
                     ${isMyMessage
-                        ? 'bg-indigo-600 text-white'
-                        : 'bg-slate-700/50 text-white backdrop-blur-sm'
+                        ? 'bg-gradient-to-br from-sky-500 to-blue-600 text-white rounded-bl-3xl rounded-tl-3xl rounded-tr-3xl rounded-br-md border border-blue-500/20'
+                        : 'bg-slate-800/60 backdrop-blur-md text-white rounded-br-3xl rounded-tr-3xl rounded-tl-3xl rounded-bl-md border border-slate-700/50'
                     }
                 `}
             >
-                <span>{message.message}</span>
-                <div className={`flex items-center gap-1 mt-1 self-end ${isMyMessage ? 'text-indigo-200' : 'text-gray-300'}`}>
-                    <span className={`text-xs opacity-70`}>
+                <div className="flex flex-col">
+                    <span className="font-normal leading-relaxed">{message.message}</span>
+                    <span className={`text-[10px] mt-1 self-end ${isMyMessage ? 'text-blue-100' : 'text-slate-400'}`}>
                         {messageTime}
                     </span>
-                    {isMyMessage && ( // Only show read status for messages sent by the authUser
-                        message.isRead ? (
-                            <IoCheckmarkDoneSharp className="w-4 h-4 text-blue-400" />
-                        ) : (
-                            <IoCheckmarkSharp className="w-4 h-4" /> 
-                        )
+                 </div>
+            </div>
+            {isMyMessage && (
+                <div className="chat-footer opacity-50 flex items-center gap-1 mt-1">
+                    {message.isRead ? (
+                        <IoCheckmarkDoneSharp className="w-4 h-4 text-blue-400" />
+                    ) : (
+                        <IoCheckmarkSharp className="w-4 h-4 text-slate-400" />
                     )}
                 </div>
+            )}
+        </div>
+    )
             </div>
         </div>
     )
